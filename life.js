@@ -56,12 +56,16 @@ board = initBoard();
 tdArray = initTable();
 updateCellColors(board, tdArray);
 
-for (let n = 0; n < nGliders; n++) {
-    let i = Math.floor(Math.random() * rows);
-    let j = Math.floor(Math.random() * cols);
-    createGlider(board, tdArray, i, j);
+
+function populateWithGliders(board, tdArray, nGliders) {
+    for (let n = 0; n < nGliders; n++) {
+        let i = Math.floor(Math.random() * rows);
+        let j = Math.floor(Math.random() * cols);
+        createGlider(board, tdArray, i, j);
+    }
 }
 
+populateWithGliders(board, tdArray, nGliders);
 
 function flipCell(board, tdArray, i, j) {
     board[i][j] = board[i][j] ? 0 : 1;
@@ -205,3 +209,4 @@ document.getElementById('stepBtn').onclick = timeStep;
 document.getElementById('stepBtn').onmouseover = previewNextTimeStep;
 document.getElementById('stepBtn').onmouseout = () => updateCellColors(board, tdArray);
 document.getElementById('clearBtn').onclick = clearBoard;
+document.getElementById('populateBtn').onclick = () => populateWithGliders(board, tdArray, nGliders);
