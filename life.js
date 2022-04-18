@@ -1,5 +1,6 @@
 const rows = 60;
 const cols = 120;
+const initialDensity = 0.15;
 const canSurvive = new Set([2, 3]);
 const canSpawn = new Set([3]);
 
@@ -11,7 +12,7 @@ function initBoard() {
         board[i] = [];
 
         for (let j = 0; j < cols; j++) {
-            board[i][j] = Math.round(Math.random() * 2/3);
+            board[i][j] = Math.random() < initialDensity ? 1 : 0;
         }
     }
 
