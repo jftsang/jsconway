@@ -1,5 +1,7 @@
 const rows = 60;
 const cols = 120;
+const canSurvive = new Set([2, 3]);
+const canSpawn = new Set([3]);
 
 
 /* Initialize the board */
@@ -87,12 +89,12 @@ function getNextBoard() {
             const amIAlive = board[i][j];
             const nAliveNeighbors = getNumberOfAliveNeighbors(board, i, j);
             if (amIAlive) {
-                if (nAliveNeighbors < 2 || nAliveNeighbors > 3)
-                    nextBoard[i][j] = 0;
-                else
+                if (canSurvive.has(nAliveNeighbors))
                     nextBoard[i][j] = 1;
+                else
+                    nextBoard[i][j] = 0;
             } else {
-                if (nAliveNeighbors === 3)
+                if (canSpawn.has(nAliveNeighbors))
                     nextBoard[i][j] = 1;
                 else
                     nextBoard[i][j] = 0;
