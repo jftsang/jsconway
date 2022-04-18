@@ -1,5 +1,5 @@
-const rows = 60;
-const cols = 120;
+const rows = 120;
+const cols = 240;
 const initialDensity = 0.15;
 const canSurvive = new Set([2, 3]);
 const canSpawn = new Set([3]);
