@@ -1,5 +1,6 @@
 const rows = 120;
 const cols = 240;
+const fps = 25;
 const initialDensity = 0.15;
 const canSurvive = new Set([2, 3]);
 const canSpawn = new Set([3]);
@@ -182,7 +183,7 @@ function startStop() {
     }
     else
     {
-        interval = setInterval(timeStep, 50);
+        interval = setInterval(timeStep, 1000 / fps);
         this.innerHTML = 'Stop';
     }
 }
