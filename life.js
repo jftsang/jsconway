@@ -43,7 +43,11 @@ function initTable() {
             cell.dataset['j'] = j.toString();
             cell.title = `${i},${j}`
 
-            cell.onclick = () => flipCell(i, j);
+            cell.onclick = () => flipCell(board, tdArray, i, j);
+            cell.oncontextmenu = (event) => {
+                createGlider(board, tdArray, i, j);
+                event.preventDefault();
+            };
             tdArray[i][j] = cell;
         }
     }
@@ -56,12 +60,33 @@ tdArray = initTable();
 updateCellColors(board, tdArray);
 
 
-function flipCell(i, j) {
+function flipCell(board, tdArray, i, j) {
     board[i][j] = board[i][j] ? 0 : 1;
     const cell = tdArray[i][j];
     cell.classList.remove('dead');
     cell.classList.remove('alive');
     cell.classList.add(board[i][j] ? 'alive' : 'dead');
+}
+
+
+function createGlider(board, tdArray, i, j) {
+    const goingUp = Math.round(Math.random());
+    const goingLeft = Math.round(Math.random());
+
+    const ip1 = (i + 1) % rows;
+    const im1 = (i - 1 + rows) % rows;
+    const jp1 = (j + 1) % cols;
+    const jm1 = (j - 1 + cols) % cols;
+    board[im1][jm1] = 1 - goingUp;
+    board[im1][j] = goingUp;
+    board[im1][jp1] = 1 - goingUp;
+    board[i][jm1] = goingLeft;
+    board[i][j] = 1;
+    board[i][jp1] = 1 - goingLeft;
+    board[ip1][jm1] = goingUp;
+    board[ip1][j] = 1 - goingUp;
+    board[ip1][jp1] = goingUp;
+    updateCellColors(board, tdArray);
 }
 
 
