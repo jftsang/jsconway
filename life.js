@@ -1,7 +1,8 @@
 const rows = 120;
 const cols = 240;
 const fps = 25;
-const initialDensity = 0.15;
+// const initialDensity = 0.;
+const nGliders = 40;
 const canSurvive = new Set([2, 3]);
 const canSpawn = new Set([3]);
 
@@ -13,17 +14,12 @@ function initBoard() {
         board[i] = [];
 
         for (let j = 0; j < cols; j++) {
-            board[i][j] = Math.random() < initialDensity ? 1 : 0;
+            /* Random initial configuration */
+            // board[i][j] = Math.random() < initialDensity ? 1 : 0;
+
+            board[i][j] = 0;
         }
     }
-
-    /*
-    board[3][3] = 1;
-    board[3][5] = 1;
-    board[4][4] = 1;
-    board[4][5] = 1;
-    board[5][4] = 1;
-     */
 
     return board
 }
@@ -59,6 +55,12 @@ function initTable() {
 board = initBoard();
 tdArray = initTable();
 updateCellColors(board, tdArray);
+
+for (let n = 0; n < nGliders; n++) {
+    let i = Math.floor(Math.random() * rows);
+    let j = Math.floor(Math.random() * cols);
+    createGlider(board, tdArray, i, j);
+}
 
 
 function flipCell(board, tdArray, i, j) {
