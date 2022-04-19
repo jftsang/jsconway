@@ -165,14 +165,7 @@ function updateCellColors(board, tdArray) {
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
             const cell = tdArray[i][j];
-            if (board[i][j]) {
-                cell.classList.add('alive');
-                cell.classList.remove('dead');
-            } else {
-                cell.classList.add('dead');
-                cell.classList.remove('alive');
-            }
-            // cell.className = board[i][j] ? 'cell alive' : 'cell dead';
+            cell.className = board[i][j] ? 'cell alive' : 'cell dead';
         }
     }
 }
