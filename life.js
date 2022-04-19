@@ -41,6 +41,8 @@ function initTable() {
             cell.title = `${i},${j}`
 
             cell.onclick = () => flipCell(board, tdArray, i, j);
+            cell.onmouseover = () => highlightCell(tdArray, i, j);
+            cell.onmouseout = () => unhighlightCell(tdArray, i, j);
             cell.oncontextmenu = (event) => {
                 createGlider(board, tdArray, i, j);
                 event.preventDefault();
@@ -73,6 +75,18 @@ function flipCell(board, tdArray, i, j) {
     cell.classList.remove('dead');
     cell.classList.remove('alive');
     cell.classList.add(board[i][j] ? 'alive' : 'dead');
+}
+
+
+function highlightCell(tdArray, i, j) {
+    const cell = tdArray[i][j];
+    cell.classList.add('highlight');
+}
+
+
+function unhighlightCell(tdArray, i, j) {
+    const cell = tdArray[i][j];
+    cell.classList.remove('highlight');
 }
 
 
@@ -151,7 +165,14 @@ function updateCellColors(board, tdArray) {
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
             const cell = tdArray[i][j];
-            cell.className = board[i][j] ? 'cell alive' : 'cell dead';
+            if (board[i][j]) {
+                cell.classList.add('alive');
+                cell.classList.remove('dead');
+            } else {
+                cell.classList.add('dead');
+                cell.classList.remove('alive');
+            }
+            // cell.className = board[i][j] ? 'cell alive' : 'cell dead';
         }
     }
 }
@@ -177,7 +198,15 @@ function previewNextTimeStep() {
     }
 }
 
-
+function removePreview() {
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            const cell = tdArray[i][j];
+            cell.classList.remove('preview-alive');
+            cell.classList.remove('preview-dead');
+        }
+    }
+}
 
 let interval = null;
 function startStop() {
@@ -207,6 +236,6 @@ function clearBoard() {
 document.getElementById('startStopBtn').onclick = startStop;
 document.getElementById('stepBtn').onclick = timeStep;
 document.getElementById('stepBtn').onmouseover = previewNextTimeStep;
-document.getElementById('stepBtn').onmouseout = () => updateCellColors(board, tdArray);
+document.getElementById('stepBtn').onmouseout = removePreview;
 document.getElementById('clearBtn').onclick = clearBoard;
 document.getElementById('populateBtn').onclick = () => populateWithGliders(board, tdArray, nGliders);

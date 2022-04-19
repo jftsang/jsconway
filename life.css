@@ -28,3 +28,7 @@ td.preview-dead {
 td.preview-alive {
     background-color: pink;
 }
+
+td.highlight {
+    background-color: hsla(180,100%,100%,0.5);
+}
