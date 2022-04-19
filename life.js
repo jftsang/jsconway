@@ -234,8 +234,11 @@ function clearBoard() {
 
 
 document.getElementById('startStopBtn').onclick = startStop;
-document.getElementById('stepBtn').onclick = timeStep;
+document.getElementById('stepBtn').onclick = () => {
+    timeStep(); removePreview(); previewNextTimeStep();
+};
 document.getElementById('stepBtn').onmouseover = previewNextTimeStep;
 document.getElementById('stepBtn').onmouseout = removePreview;
+// document.getElementById('stepBtn').onmouseout = () => updateCellColors(board, tdArray);
 document.getElementById('clearBtn').onclick = clearBoard;
 document.getElementById('populateBtn').onclick = () => populateWithGliders(board, tdArray, nGliders);
